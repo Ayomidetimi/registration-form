@@ -1,13 +1,32 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 function SignupForm({ onSwitchToLogin }) {
-  const [showPassword, setShowPassword] = useState(false)
-  const [message, setMessage] = useState('')
+  const[username, setUsername] = useState('');
+  const[email, setEmail] = useState('');
+  const[password, setPassword] = useState('');
+
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState('');
 
   function handleSubmit(event) {
     event.preventDefault()
-    setMessage('Your details are ready. Connect an account service to finish signing up.')
+    axios.post('http://localhost:3000/auth/signup', {
+      username: username,
+      email: email,
+      password: password
+    }).then((response) => {
+      console.log(response.data);
+      setMessage('Your details are ready. Connect an account service to finish signing up.');
+    }).catch((error) => {
+      console.error(error);
+      setMessage('An error occurred during signup. Please try again.');
+    })
+  
   }
+
+
 
   return (
     <div className="auth-content">
@@ -30,6 +49,8 @@ function SignupForm({ onSwitchToLogin }) {
             placeholder="e.g. Alex Morgan"
             autoComplete="name"
             minLength="2"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </label>
@@ -41,6 +62,8 @@ function SignupForm({ onSwitchToLogin }) {
             name="email"
             placeholder="you@example.com"
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
@@ -54,6 +77,8 @@ function SignupForm({ onSwitchToLogin }) {
               placeholder="At least 8 characters"
               autoComplete="new-password"
               minLength="8"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <button
@@ -98,4 +123,4 @@ function SignupForm({ onSwitchToLogin }) {
   )
 }
 
-export default SignupForm
+export default SignupForm;
