@@ -12,7 +12,7 @@ function SignupForm({ onSwitchToLogin }) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    axios.post('http://localhost:3000/auth/signup', {
+    axios.post('http://localhost:3000/auth/register', {
       username: username,
       email: email,
       password: password
@@ -21,7 +21,7 @@ function SignupForm({ onSwitchToLogin }) {
       setMessage('Your details are ready. Connect an account service to finish signing up.');
     }).catch((error) => {
       console.error(error);
-      setMessage('An error occurred during signup. Please try again.');
+      setMessage(error.response?.data?.message || 'An error occurred during signup. Please try again.');
     })
   
   }
