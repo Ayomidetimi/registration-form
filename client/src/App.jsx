@@ -1,20 +1,21 @@
-import { useState } from 'react'
-import LoginForm from './components/LoginForm.jsx'
-import SignupForm from './components/SignupForm.jsx'
-import './App.css'
+
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import LoginForm from './components/LoginForm.jsx';
+import SignupForm from './components/SignupForm.jsx';
+import './App.css';
 
 function App() {
-  const [page, setPage] = useState('signup')
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <main className="auth-layout">
       <section className="welcome-panel" aria-label="Welcome">
         <div className="welcome-orbit welcome-orbit-one" />
         <div className="welcome-orbit welcome-orbit-two" />
+
         <a className="brand" href="/" aria-label="Kindred home">
-          <span className="brand-mark" aria-hidden="true">
-            k
-          </span>
+          <span className="brand-mark" aria-hidden="true">k</span>
           <span>kindred</span>
         </a>
 
@@ -25,9 +26,7 @@ function App() {
             A thoughtful space to bring your plans, people, and ideas together.
           </p>
           <div className="welcome-note">
-            <span className="note-icon" aria-hidden="true">
-              ✳
-            </span>
+            <span className="note-icon" aria-hidden="true">✳</span>
             <span>Good things happen when everything comes together.</span>
           </div>
         </div>
@@ -42,15 +41,34 @@ function App() {
         </div>
       </section>
 
-      <section className="form-panel" aria-label={page === 'signup' ? 'Create account' : 'Log in'}>
-        {page === 'signup' ? (
-          <SignupForm onSwitchToLogin={() => setPage('login')} />
-        ) : (
-          <LoginForm onSwitchToSignup={() => setPage('signup')} />
-        )}
+      <section
+        className="form-panel"
+        aria-label={location.pathname === '/signup' ? 'Create account' : 'Log in'}
+      >
+        <Routes>
+          <Route path="/" element={<Navigate to="/signup" replace />} />
+
+          <Route
+            path="/signup"
+            element={
+              <SignupForm
+                onSwitchToLogin={() => navigate('/login')}
+              />
+            }
+          />
+
+          <Route
+            path="/login"
+            element={
+              <LoginForm
+                onSwitchToSignup={() => navigate('/signup')}
+              />
+            }
+          />
+        </Routes>
       </section>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

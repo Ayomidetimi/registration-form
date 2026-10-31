@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function SignupForm({ onSwitchToLogin }) {
   const[username, setUsername] = useState('');
@@ -9,6 +10,7 @@ function SignupForm({ onSwitchToLogin }) {
 
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -18,7 +20,11 @@ function SignupForm({ onSwitchToLogin }) {
       password: password
     }).then((response) => {
       console.log(response.data);
-      setMessage('Your details are ready. Connect an account service to finish signing up.');
+      if (response.data.status) {
+        navigate('/login')
+      } else {
+        setMessage(response.data.message || 'An error occurred during signup. Please try again.');
+      }
     }).catch((error) => {
       console.error(error);
       setMessage(error.response?.data?.message || 'An error occurred during signup. Please try again.');

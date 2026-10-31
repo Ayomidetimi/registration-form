@@ -1,12 +1,33 @@
 import { useState } from 'react'
+import Axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function LoginForm({ onSwitchToSignup }) {
   const [showPassword, setShowPassword] = useState(false)
   const [message, setMessage] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
+
+  
   function handleSubmit(event) {
     event.preventDefault()
-    setMessage('Your login is ready. Connect an account service to continue.')
+    Axios.post('http://localhost:3000/auth/login', {
+      email: email,
+      password: password
+     },
+     {
+      withCredentials: true
+     }
+    ).then((response) => {
+      if (response.data.status) {
+        navigate('/dashboard')
+      }
+    }).catch((error) => {
+      console.error(error);
+      setMessage('Invalid email or password. Please try again.');
+    });
   }
 
   return (
@@ -29,7 +50,9 @@ function LoginForm({ onSwitchToSignup }) {
             name="email"
             placeholder="you@example.com"
             autoComplete="email"
+            onChange={(e) => setEmail(e.target.value)}
             required
+            value={email}
           />
         </label>
 
@@ -41,6 +64,8 @@ function LoginForm({ onSwitchToSignup }) {
               name="password"
               placeholder="Enter your password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
               required
             />
             <button
