@@ -334,6 +334,48 @@
   line-height: 1.5;
 }
 
+.reset-confirmation {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 16px;
+  border: 1px solid #dce5d6;
+  border-radius: 8px;
+  background: #f4f7f0;
+}
+
+.confirmation-icon {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #dce5d6;
+  color: #405b48;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reset-confirmation h3 {
+  margin: 2px 0 6px;
+  color: #263b32;
+  font-size: 13px;
+}
+
+.reset-confirmation p {
+  margin: 0;
+  color: #657064;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.reset-confirmation strong {
+  color: #405b48;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
 .switch-prompt {
   margin: 27px 0 0;
   color: #777e75;

@@ -2,6 +2,7 @@
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm.jsx';
 import SignupForm from './components/SignupForm.jsx';
+import ForgotPassword from './components/ForgotPassword.jsx';
 import './App.css';
 
 function App() {
@@ -43,7 +44,13 @@ function App() {
 
       <section
         className="form-panel"
-        aria-label={location.pathname === '/signup' ? 'Create account' : 'Log in'}
+        aria-label={
+          location.pathname === '/signup'
+            ? 'Create account'
+            : location.pathname === '/forgot-password'
+              ? 'Reset password'
+              : 'Log in'
+        }
       >
         <Routes>
           <Route path="/" element={<Navigate to="/signup" replace />} />
@@ -65,6 +72,8 @@ function App() {
               />
             }
           />
+
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </section>
     </main>

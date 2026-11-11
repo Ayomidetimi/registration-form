@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function LoginForm({ onSwitchToSignup }) {
   const [showPassword, setShowPassword] = useState(false)
@@ -85,9 +85,9 @@ function LoginForm({ onSwitchToSignup }) {
             <input type="checkbox" name="remember" />
             <span>Remember me</span>
           </label>
-          <a className="forgot-link" href="#forgot-password">
+          <Link className="forgot-link" to="/forgot-password">
             Forgot password?
-          </a>
+          </Link>
         </div>
 
         <button className="submit-button" type="submit">
