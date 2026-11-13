@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm.jsx';
 import SignupForm from './components/SignupForm.jsx';
 import ForgotPassword from './components/ForgotPassword.jsx';
 import './App.css';
+import ResetPassword from './components/resetPassword.jsx';
 
 function App() {
   const navigate = useNavigate();
@@ -71,6 +72,11 @@ function App() {
                 onSwitchToSignup={() => navigate('/signup')}
               />
             }
+          />
+
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPassword />}
           />
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
