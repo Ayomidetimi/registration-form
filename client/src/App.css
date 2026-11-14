@@ -167,6 +167,14 @@
   width: min(100%, 410px);
 }
 
+.reset-password-content .form-heading p {
+  line-height: 1.6;
+}
+
+.reset-password-content .submit-button {
+  min-height: 52px;
+}
+
 .mobile-brand {
   display: none;
   margin-bottom: 48px;
